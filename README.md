@@ -40,9 +40,9 @@ saves result into cache, consecutive calls will be delivered from cache.
 example - characterId = 1011106,1009693
 ## Get All marvel character ids.
 - http://localhost:8080/characters
-Give it a try.
-- http://localhost:8080/characters/1011106?language=fr
-- http://localhost:8080/characters/1009693?language=fr
+- Give it a try.
+    - http://localhost:8080/characters/1011106?language=fr
+    - http://localhost:8080/characters/1009693?language=fr
 
 ### Step to create TRANS_API_KEY
 - Open https://rapidapi.com/
