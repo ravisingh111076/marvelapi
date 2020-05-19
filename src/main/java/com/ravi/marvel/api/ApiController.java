@@ -25,7 +25,6 @@ public class ApiController {
     private final CharacterService characterService;
     private final RequestValidator validator;
 
-
     @ApiOperation(value = "get all marvel character ids")
     @ApiResponses({@ApiResponse(code = 200, message = "Get all marvel characters id"),
             @ApiResponse(code = 400, message = "Bad Request"),

@@ -11,8 +11,8 @@ cache:
   default: true
 marvel:
   url: ${MARVEL_URL:http://gateway.marvel.com}
-  private_key: ${PRIVATE_KEY:aaaaa}
-  public_key: ${PUBLIC_KEY:aaaaa}
+  private_key: ${PRIVATE_KEY:yourprivatekey}
+  public_key: ${PUBLIC_KEY:yourpublickey}
   limit: 100
   total: 1493
 translator:
