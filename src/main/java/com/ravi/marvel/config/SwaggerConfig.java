@@ -2,6 +2,7 @@ package com.ravi.marvel.config;
 
 import com.ravi.marvel.api.ApiController;
 import com.google.common.base.Predicate;
+import com.ravi.marvel.api.MarvelCharacterResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -25,7 +26,7 @@ import static springfox.documentation.builders.PathSelectors.regex;
 
 @Configuration
 @EnableSwagger2
-@ComponentScan(basePackageClasses = {ApiController.class})
+@ComponentScan(basePackageClasses = {ApiController.class, MarvelCharacterResponse.class})
 public class SwaggerConfig {
 
     @Autowired
@@ -35,7 +36,7 @@ public class SwaggerConfig {
     private String host;
 
     @Bean
-    public Docket checkoutApi() {
+    public Docket characterApi() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .host(host)
                 .groupName("CharacterAPI")

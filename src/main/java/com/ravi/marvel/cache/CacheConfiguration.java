@@ -11,6 +11,7 @@ import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.CachingConfigurerSupport;
 import org.springframework.cache.concurrent.ConcurrentMapCacheManager;
 import org.springframework.cache.interceptor.CacheResolver;
+import org.springframework.cache.support.NoOpCacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import lombok.Setter;
@@ -69,9 +70,6 @@ public class CacheConfiguration extends CachingConfigurerSupport {
 
     @Bean
     public CacheManager cacheManager(RedisTemplate redisTemplate) {
-//        if(disabled) {
-//            return new NoOpCacheManager();
-//        }
         RedisCacheManager cacheManager = new RedisCacheManager(redisTemplate);
         // Number of seconds before expiration. Defaults to unlimited (0)
         cacheManager.setDefaultExpiration(ttl);
@@ -82,7 +80,7 @@ public class CacheConfiguration extends CachingConfigurerSupport {
         return cacheManager;
     }
 
-    //TODO not used wanted to support multiple caching provider
+    //TODO not used wanted atm. Wanted To support multiple caching provider.
     @Bean
     @ConditionalOnProperty("cache.default")
     public CacheManager cacheManager() {

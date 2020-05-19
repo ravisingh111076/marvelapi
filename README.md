@@ -1,5 +1,7 @@
 **TODO**
 # Marvel Client
+### Swagger UI
+- http://localhost:8080/swagger-ui.html
 
 ### Stack
 - Java 8
@@ -12,6 +14,7 @@
 1. Install Java 8+
 2. Install Maven
 3. Install Redis: from Docker container or install locally
+   visit - https://redis.io/topics/quickstart
 4. checkout: repository from Github
 5. maven setup: copy the settings.xml from the root to your local.m2 directory
 6. Mandatory environment vars: add ```PRIVATE_KEY```,```PUBLIC_KEY```,```REDIS_PORT```
