@@ -1,0 +1,31 @@
+redis:
+  host: ${REDIS_HOST:localhost}
+  port: ${REDIS_PORT:6379}
+  ttl: ${REDIS_TTL:3600}
+  enabled: true
+
+swagger:
+  host: ${SWAGGER_HOST:localhost}
+
+cache:
+  default: true
+marvel:
+  url: ${MARVEL_URL:http://gateway.marvel.com}
+  private_key: ${PRIVATE_KEY:aaaaa}
+  public_key: ${PUBLIC_KEY:aaaaa}
+  limit: 100
+  total: 1493
+translator:
+  #url: ${TRANSLATOR_URL:https://google-translate1.p.rapidapi.com}
+  url: https://microsoft-azure-translation-v1.p.rapidapi.com
+  apiKey: ${TRANS_API_KEY:76b23e4625msh734ccae6dd48edep1e2373jsn1b2ff5eb920e}
+  #host : ${TRANS_HOST_URL:google-translate1.p.rapidapi.com}
+  host : microsoft-azure-translation-v1.p.rapidapi.com
+
+info:
+  app:
+    version: 1.0
+    encoding: UTF-8
+    java: 1.8
+    spring: Edgware.SR1
+    build: local_build
