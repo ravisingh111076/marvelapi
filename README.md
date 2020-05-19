@@ -23,16 +23,17 @@ saves result into cache, consecutive calls will be delivered from cache.
 2. Install Maven
 3. Install Redis: from Docker container or install locally
    visit - https://redis.io/topics/quickstart
-4. Environment vars: add ```PRIVATE_KEY```,```PUBLIC_KEY```,```TRANS_API_KEY```
+4. API Key acquisition from rapidapi.com , (you can skip this by default my key will be used)
+   please visit https://rapidapi.com/ for your key.See in the last section for quick rapidapi steps
+5. Environment vars: add ```PRIVATE_KEY```,```PUBLIC_KEY```,```TRANS_API_KEY```
    by default my key will be used for TRANS_API_KEY,
-   please visit https://rapidapi.com/ for your key.see in the last section for quick rapidapi steps
    set ```REDIS_PORT``` - if you are running redis on other than 6379.
-5. compile:  ```mvn clean install``` from root directory
-6. Export env variables
+7. compile:  ```mvn clean install``` from root directory
+8. Export env variables
    export PUBLIC_KEY=yourMarvelkey
    export PRIVATE_KEY=yourMarvelPrivateKey
    export TRANS_API_KEY=KEY_FROM_RAPID_API (optional for test run you can use my key)
-7. start application from command line ```java -jar target/marvelService-1.0.jar```
+9. start application from command line ```java -jar target/marvelService-1.0.jar```
 
 ### Test Data
 example - characterId = 1011106,1009693
