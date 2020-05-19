@@ -23,7 +23,7 @@ saves result into cache, consecutive calls will be delivered from cache.
 2. Install Maven
 3. Install Redis: from Docker container or install locally
    visit - https://redis.io/topics/quickstart
-4. API Key acquisition from rapidapi.com , (you can skip this by default my key will be used)
+4. API Key acquisition from rapidapi.com
    please visit https://rapidapi.com/ for your key.See in the last section for quick rapidapi steps
 5. Environment vars: add ```PRIVATE_KEY```,```PUBLIC_KEY```,```TRANS_API_KEY```
    by default my key will be used for TRANS_API_KEY,
@@ -43,6 +43,7 @@ example - characterId = 1011106,1009693
 - Give it a try.
     - http://localhost:8080/characters/1011106?language=fr
     - http://localhost:8080/characters/1009693?language=fr
+    - http://localhost:8080/characters/1009693 (default en)
 
 ### Step to create TRANS_API_KEY
 - Open https://rapidapi.com/

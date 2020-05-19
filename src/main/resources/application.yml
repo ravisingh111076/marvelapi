@@ -18,9 +18,17 @@ marvel:
 translator:
   #url: ${TRANSLATOR_URL:https://google-translate1.p.rapidapi.com}
   url: https://microsoft-azure-translation-v1.p.rapidapi.com
-  apiKey: ${TRANS_API_KEY:your-rapid-apikey}
+  apiKey: ${TRANS_API_KEY:your_rapiapi_key}
   #host : ${TRANS_HOST_URL:google-translate1.p.rapidapi.com}
   host : microsoft-azure-translation-v1.p.rapidapi.com
+
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 5000
+        readTimeout: 5000
+        loggerLevel: basic
 
 info:
   app:

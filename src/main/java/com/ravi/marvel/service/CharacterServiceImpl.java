@@ -54,11 +54,16 @@ public class CharacterServiceImpl implements CharacterService {
                     Locale.ENGLISH.toString().equalsIgnoreCase(language)) {
                     return response;
             }
-            GetTranslationResponse getTranslationResponse = translatorFeignService.translate(
-                    securityKeyProvider.getTranslatorKeyProvider().getApiKey(),
-                    securityKeyProvider.getTranslatorKeyProvider().getHost(),
-                    Locale.ENGLISH.toString(),language, response.getDescription());
-            response.setDescription(getTranslationResponse.getString());
+            GetTranslationResponse getTranslationResponse;
+            try {
+                getTranslationResponse = translatorFeignService.translate(
+                        securityKeyProvider.getTranslatorKeyProvider().getApiKey(),
+                        securityKeyProvider.getTranslatorKeyProvider().getHost(),
+                        Locale.ENGLISH.toString(), language, response.getDescription());
+                response.setDescription(getTranslationResponse.getString());
+            }catch (Exception ex) {
+                ex.printStackTrace();
+            }
             return response;
         };
     }
