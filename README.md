@@ -25,7 +25,7 @@ saves result into cache, consecutive calls will be delivered from cache.
    visit - https://redis.io/topics/quickstart
 4. Environment vars: add ```PRIVATE_KEY```,```PUBLIC_KEY```,```TRANS_API_KEY```
    by default my key will be used for TRANS_API_KEY,
-   please visit https://rapidapi.com/ for your key.
+   please visit https://rapidapi.com/ for your key.see in the last section for quick rapidapi steps
    set ```REDIS_PORT``` - if you are running redis on other than 6379.
 5. compile:  ```mvn clean install``` from root directory
 6. Export env variables
