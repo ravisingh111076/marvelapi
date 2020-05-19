@@ -37,8 +37,7 @@ public class ApiController {
         List<Long> marvelCharacterIds = marvelCharacterCacheComponent.lookUpAllCharacterIds();
         return new ResponseEntity<>(marvelCharacterIds, HttpStatus.OK);
     }
-
-
+    
     @ApiOperation(value = "get marvel character by id", response = MarvelCharacterResponse.class)
     @ApiResponses({@ApiResponse(code = 200, message = "Get marvel characters by id"),
             @ApiResponse(code = 400, message = "Bad Request"),
