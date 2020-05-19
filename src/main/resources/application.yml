@@ -18,7 +18,7 @@ marvel:
 translator:
   #url: ${TRANSLATOR_URL:https://google-translate1.p.rapidapi.com}
   url: https://microsoft-azure-translation-v1.p.rapidapi.com
-  apiKey: ${TRANS_API_KEY:76b23e4625msh734ccae6dd48edep1e2373jsn1b2ff5eb920e}
+  apiKey: ${TRANS_API_KEY:your-rapid-apikey}
   #host : ${TRANS_HOST_URL:google-translate1.p.rapidapi.com}
   host : microsoft-azure-translation-v1.p.rapidapi.com
 
