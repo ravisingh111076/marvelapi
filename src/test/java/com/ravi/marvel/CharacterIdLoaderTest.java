@@ -4,7 +4,7 @@ import com.ravi.marvel.integration.MarvelFeignClient;
 import com.ravi.marvel.domain.GetCharacterResponse;
 import com.ravi.marvel.integration.loader.CharacterIdLoader;
 import com.ravi.marvel.security.MarvelKeyProvider;
-import com.ravi.marvel.security.SecurityKeyProvide;
+import com.ravi.marvel.security.SecurityKeyProvider;
 import com.ravi.marvel.security.TranslatorKeyProvider;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -32,7 +32,7 @@ public class CharacterIdLoaderTest {
     private TranslatorKeyProvider translatorKeyProvider;
 
     @InjectMocks
-    private SecurityKeyProvide securityKeyProvide;
+    private SecurityKeyProvider securityKeyProvider;
 
     @InjectMocks
     private CharacterIdLoader characterIdLoader;

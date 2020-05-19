@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 @Builder
 @AllArgsConstructor
 @Component
-public class SecurityKeyProvide {
+public class SecurityKeyProvider {
     private MarvelKeyProvider marvelKeyProvider;
     private TranslatorKeyProvider translatorKeyProvider;
 }

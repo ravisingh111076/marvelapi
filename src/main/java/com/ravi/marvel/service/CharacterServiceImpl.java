@@ -5,7 +5,7 @@ import com.ravi.marvel.integration.TranslatorFeignService;
 import com.ravi.marvel.domain.GetCharacterResponse;
 import com.ravi.marvel.api.MarvelCharacterResponse;
 import com.ravi.marvel.domain.GetTranslationResponse;
-import com.ravi.marvel.security.SecurityKeyProvide;
+import com.ravi.marvel.security.SecurityKeyProvider;
 import org.springframework.stereotype.Service;
 import java.util.Locale;
 
@@ -14,14 +14,14 @@ public class CharacterServiceImpl implements CharacterService {
 
     private final MarvelFeignClient marvelFeignClient;
     private final TranslatorFeignService translatorFeignService;
-    private final SecurityKeyProvide securityKeyProvide;
+    private final SecurityKeyProvider securityKeyProvider;
 
     public CharacterServiceImpl(MarvelFeignClient marvelFeignClient,
                                 TranslatorFeignService translatorFeignService,
-                                SecurityKeyProvide securityKeyProvide) {
+                                SecurityKeyProvider securityKeyProvider) {
         this.marvelFeignClient = marvelFeignClient;
         this.translatorFeignService = translatorFeignService;
-        this.securityKeyProvide = securityKeyProvide;
+        this.securityKeyProvider = securityKeyProvider;
     }
 
     @Override
@@ -38,9 +38,9 @@ public class CharacterServiceImpl implements CharacterService {
                 //make call to feign client, check for error set error if
                 Long timeStamp = System.currentTimeMillis();
                 GetCharacterResponse response = marvelFeignClient.lookUpCharacterById(characterId,
-                        securityKeyProvide.getMarvelKeyProvider().getPublic_key(),
+                        securityKeyProvider.getMarvelKeyProvider().getPublic_key(),
                         timeStamp,
-                        securityKeyProvide.getMarvelKeyProvider().getKey(timeStamp));
+                        securityKeyProvider.getMarvelKeyProvider().getKey(timeStamp));
             return Either.toRight(response);
             }catch (Exception exception) {
                 return Either.toLeft(new RuntimeException("some thing went wrong"));
@@ -55,8 +55,8 @@ public class CharacterServiceImpl implements CharacterService {
                     return response;
             }
             GetTranslationResponse getTranslationResponse = translatorFeignService.translate(
-                    securityKeyProvide.getTranslatorKeyProvider().getApiKey(),
-                    securityKeyProvide.getTranslatorKeyProvider().getHost(),
+                    securityKeyProvider.getTranslatorKeyProvider().getApiKey(),
+                    securityKeyProvider.getTranslatorKeyProvider().getHost(),
                     Locale.ENGLISH.toString(),language, response.getDescription());
             response.setDescription(getTranslationResponse.getString());
             return response;

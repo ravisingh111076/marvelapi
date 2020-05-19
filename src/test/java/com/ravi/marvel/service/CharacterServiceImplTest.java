@@ -6,7 +6,7 @@ import com.ravi.marvel.integration.TranslatorFeignService;
 import com.ravi.marvel.domain.GetCharacterResponse;
 import com.ravi.marvel.domain.GetTranslationResponse;
 import com.ravi.marvel.security.MarvelKeyProvider;
-import com.ravi.marvel.security.SecurityKeyProvide;
+import com.ravi.marvel.security.SecurityKeyProvider;
 import com.ravi.marvel.security.TranslatorKeyProvider;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -35,7 +35,7 @@ public class CharacterServiceImplTest {
     private TranslatorKeyProvider translatorKeyProvider;
 
     @InjectMocks
-    private SecurityKeyProvide securityKeyProvide;
+    private SecurityKeyProvider securityKeyProvider;
 
     @InjectMocks
     private CharacterServiceImpl marvelCharacterService;
@@ -49,7 +49,7 @@ public class CharacterServiceImplTest {
         when(translatorKeyProvider.getHost()).thenReturn("host");
 
         marvelCharacterService = new CharacterServiceImpl(marvelFeignClient,
-                translatorFeignService, securityKeyProvide);
+                translatorFeignService, securityKeyProvider);
 
         GetCharacterResponse getCharacterResponse = GetCharacterResponse.builder()
                 .marvelResponse(GetCharacterResponse.MarvelResponse.builder()
