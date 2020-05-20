@@ -8,6 +8,7 @@ import com.ravi.marvel.domain.GetTranslationResponse;
 import com.ravi.marvel.security.MarvelKeyProvider;
 import com.ravi.marvel.security.SecurityKeyProvider;
 import com.ravi.marvel.security.TranslatorKeyProvider;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -40,17 +41,18 @@ public class CharacterServiceImplTest {
     @InjectMocks
     private CharacterServiceImpl marvelCharacterService;
 
-    @Test
-    public void testLookUpCharacter() throws Exception {
-
+    @Before
+    public void setUp() throws Exception{
         when(marvelKeyProvider.getKey(anyLong())).thenReturn("key");
         when(marvelKeyProvider.getPublic_key()).thenReturn("publicKey");
         when(translatorKeyProvider.getApiKey()).thenReturn("apikey");
         when(translatorKeyProvider.getHost()).thenReturn("host");
-
         marvelCharacterService = new CharacterServiceImpl(marvelFeignClient,
                 translatorFeignService, securityKeyProvider);
+    }
 
+    @Test
+    public void testLookUpCharacter_WhenLanguageIsNonEnglish_ThenTranslateDescription()  {
         GetCharacterResponse getCharacterResponse = GetCharacterResponse.builder()
                 .marvelResponse(GetCharacterResponse.MarvelResponse.builder()
                         .characterList(Arrays.asList(GetCharacterResponse.Character
@@ -60,6 +62,7 @@ public class CharacterServiceImplTest {
                                 .thumbnail(GetCharacterResponse.Thumbnail.builder()
                                         .path("path").extension("ext").
                                                 build()).build())).build()).build();
+
         GetTranslationResponse getTranslationResponse = GetTranslationResponse.builder()
                 .string("testdescription-In-Frence").build();
 
@@ -75,4 +78,26 @@ public class CharacterServiceImplTest {
         assertEquals(100l, response.getId().longValue());
         assertEquals("testname", response.getName());
     }
+
+    @Test
+    public void testLookUpCharacter_WhenLanguageIsEnglish_ThenOriginalDescription()  {
+        GetCharacterResponse getCharacterResponse = GetCharacterResponse.builder()
+                .marvelResponse(GetCharacterResponse.MarvelResponse.builder()
+                        .characterList(Arrays.asList(GetCharacterResponse.Character
+                                .builder().id(100l)
+                                .description("testdescription")
+                                .name("testname")
+                                .thumbnail(GetCharacterResponse.Thumbnail.builder()
+                                        .path("path").extension("ext").
+                                                build()).build())).build()).build();
+
+        when(marvelFeignClient.lookUpCharacterById(eq("testid"),
+                eq("publicKey"), anyLong(), eq("key"))).thenReturn(getCharacterResponse);
+        MarvelCharacterResponse response = marvelCharacterService.lookUpCharacter("testid", null);
+
+        assertEquals("testdescription",response.getDescription());
+        assertEquals(100l, response.getId().longValue());
+        assertEquals("testname", response.getName());
+    }
+
 }
