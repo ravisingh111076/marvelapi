@@ -32,7 +32,7 @@ saves result into cache, consecutive calls will be delivered from cache.
 8. Export env variables
    - export PUBLIC_KEY=yourMarvelkey
    - export PRIVATE_KEY=yourMarvelPrivateKey
-   - export TRANS_API_KEY=KEY_FROM_RAPID_API (optional for test run you can use my key)
+   - export TRANS_API_KEY=KEY_FROM_RAPID_API
    OR Follow appropriate step based on Operating system.
 9. start application from command line ```java -jar target/marvelService-1.0.jar```
 
