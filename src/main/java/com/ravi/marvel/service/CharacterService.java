@@ -2,6 +2,7 @@ package com.ravi.marvel.service;
 
 import com.ravi.marvel.domain.GetCharacterResponse;
 import com.ravi.marvel.api.MarvelCharacterResponse;
+import io.vavr.control.Either;
 
 import java.util.function.BiFunction;
 import java.util.function.Function;
@@ -14,7 +15,7 @@ public interface CharacterService {
      * so tasks are - make marvel service call, transform it into response,
      * translate description and set in response.
      */
-   interface MakeMarvelServiceCall extends Function<String, Either<GetCharacterResponse>>{};
+   interface MakeMarvelServiceCall extends Function<String, Either<Throwable, GetCharacterResponse>>{};
    interface TranslateCharacterDescription extends BiFunction<String, MarvelCharacterResponse, MarvelCharacterResponse> {};
-   interface TransformFeignClientMarvelResponseToApiMarvelResponse extends Function<Either<GetCharacterResponse>, MarvelCharacterResponse>{};
+   interface TransformFeignClientMarvelResponseToApiMarvelResponse extends Function<Either<Throwable,GetCharacterResponse>, MarvelCharacterResponse>{};
 }

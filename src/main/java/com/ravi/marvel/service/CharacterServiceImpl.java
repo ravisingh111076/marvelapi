@@ -6,6 +6,7 @@ import com.ravi.marvel.domain.GetCharacterResponse;
 import com.ravi.marvel.api.MarvelCharacterResponse;
 import com.ravi.marvel.domain.GetTranslationResponse;
 import com.ravi.marvel.security.SecurityKeyProvider;
+import io.vavr.control.Try;
 import org.springframework.stereotype.Service;
 import java.util.Locale;
 
@@ -34,17 +35,11 @@ public class CharacterServiceImpl implements CharacterService {
 
     MakeMarvelServiceCall makeMarvelServiceCall() {
         return characterId -> {
-            try {
-                //make call to feign client, check for error set error if
-                Long timeStamp = System.currentTimeMillis();
-                GetCharacterResponse response = marvelFeignClient.lookUpCharacterById(characterId,
-                        securityKeyProvider.getMarvelKeyProvider().getPublic_key(),
-                        timeStamp,
-                        securityKeyProvider.getMarvelKeyProvider().getKey(timeStamp));
-            return Either.toRight(response);
-            }catch (Exception exception) {
-                return Either.toLeft(new RuntimeException("some thing went wrong"));
-            }
+            Long timeStamp = System.currentTimeMillis();
+            return Try.of(() -> marvelFeignClient.lookUpCharacterById(characterId,
+                    securityKeyProvider.getMarvelKeyProvider().getPublic_key(),
+                    timeStamp,
+                    securityKeyProvider.getMarvelKeyProvider().getKey(timeStamp))).toEither();
         };
     }
 
@@ -54,27 +49,19 @@ public class CharacterServiceImpl implements CharacterService {
                     Locale.ENGLISH.toString().equalsIgnoreCase(language)) {
                     return response;
             }
-            GetTranslationResponse getTranslationResponse;
-            try {
-                getTranslationResponse = translatorFeignService.translate(
-                        securityKeyProvider.getTranslatorKeyProvider().getApiKey(),
-                        securityKeyProvider.getTranslatorKeyProvider().getHost(),
-                        Locale.ENGLISH.toString(), language, response.getDescription());
-                response.setDescription(getTranslationResponse.getString());
-            }catch (Exception ex) {
-                ex.printStackTrace();
-            }
+            GetTranslationResponse getTranslationResponse = Try.of(()-> translatorFeignService.translate(
+                    securityKeyProvider.getTranslatorKeyProvider().getApiKey(),
+                    securityKeyProvider.getTranslatorKeyProvider().getHost(),
+                    Locale.ENGLISH.toString(), language, response.getDescription())).getOrElseThrow((ex) -> new RuntimeException(ex.getMessage()));
+            response.setDescription(getTranslationResponse.getString());
             return response;
         };
     }
 
     TransformFeignClientMarvelResponseToApiMarvelResponse transformMarvelServiceResponseToApiResponse() {
         return (marvelCharacter -> {
-            if(marvelCharacter.hasException()) {
-                throw marvelCharacter.exception();
-            }
-            GetCharacterResponse.Character character = marvelCharacter.rightValue()
-                    .getMarvelResponse().getCharacterList().get(0);
+            GetCharacterResponse.Character character = marvelCharacter.getOrElseThrow((exception)->
+                    new RuntimeException(exception.getMessage())).getMarvelResponse().getCharacterList().get(0);
             return MarvelCharacterResponse.builder()
                     .description(character.getDescription())
                     .id(character.getId())
